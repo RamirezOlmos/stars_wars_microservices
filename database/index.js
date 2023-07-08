@@ -1,9 +1,9 @@
-const express = require("express");
-const morgan = require("morgan");
+const server = require("./src/server");
 
-const server = express();
+// const { Character, Film } = require("./src/database");
 
-server.use(express.json());
-server.use(morgan("dev"));
+// Character.getAll().then((res) => console.log(res[0]));
 
-module.exports = server;
+server.listen(8004, () => {
+  console.log("Database service on PORT 8004");
+});
