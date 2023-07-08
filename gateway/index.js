@@ -1,34 +1,42 @@
-const express = require('express');
-const morgan = require('morgan');
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const express = require("express");
+const morgan = require("morgan");
+const { createProxyMiddleware } = require("http-proxy-middleware");
 
 const app = express();
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 
 app.use(
-  '/characters',
+  "/characters",
   createProxyMiddleware({
-    target: 'http://characters:8001',
-    changeOrigin: true
+    target: "http://characters:8001",
+    changeOrigin: true,
   })
 );
 
 app.use(
-  '/films',
+  "/films",
   createProxyMiddleware({
-    target: 'http://films:8002',
-    changeOrigin: true
+    target: "http://films:8002",
+    changeOrigin: true,
   })
 );
 
 app.use(
-  '/planets',
+  "/planets",
   createProxyMiddleware({
-    target: 'http://planets:8003',
-    changeOrigin: true
+    target: "http://planets:8003",
+    changeOrigin: true,
+  })
+);
+
+app.use(
+  "/",
+  createProxyMiddleware({
+    target: "http://database:8004",
+    changeOrigin: true,
   })
 );
 
 app.listen(8000, () => {
-  console.log('Gateway on port 8000');
-})
+  console.log("Gateway on port 8000");
+});
